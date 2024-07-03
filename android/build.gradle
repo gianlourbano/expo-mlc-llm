@@ -9,6 +9,11 @@ applyKotlinExpoModulesCorePlugin()
 useCoreDependencies()
 useExpoPublishing()
 
+print(project(":expo-mlc-llm").projectDir.absolutePath)
+
+print(new File("mlc4j", "build.gradle"))
+
+
 // If you want to use the managed Android SDK versions from expo-modules-core, set this to true.
 // The Android SDK versions will be bumped from time to time in SDK releases and may introduce breaking changes in your module code.
 // Most of the time, you may like to manage the Android SDK versions yourself.
@@ -40,4 +45,19 @@ android {
   lintOptions {
     abortOnError false
   }
+  sourceSets {
+        main {
+            jniLibs.srcDirs = ['output']
+        }
+    }
 }
+
+dependencies {
+    implementation fileTree(dir: 'output', include: ['*.jar'])
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
+    implementation 'androidx.compose.ui:ui-desktop:1.6.8'
+}
+

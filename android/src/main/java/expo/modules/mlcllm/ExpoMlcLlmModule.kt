@@ -2,6 +2,17 @@ package expo.modules.mlcllm
 
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import ai.mlc.mlcllm.MLCEngine
+import ai.mlc.mlcllm.OpenAIProtocol
+import ai.mlc.mlcllm.OpenAIProtocol.*
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.launch
+import java.io.File
 
 class ExpoMlcLlmModule : Module() {
   // Each module class must implement the definition function. The definition consists of components
@@ -13,6 +24,10 @@ class ExpoMlcLlmModule : Module() {
     // The module will be accessible from `requireNativeModule('ExpoMlcLlm')` in JavaScript.
     Name("ExpoMlcLlm")
 
+    OnCreate {
+      Log.i("Init", "Hello from mlc-llm!")
+    }
+
     // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
     Constants(
       "PI" to Math.PI
@@ -23,7 +38,27 @@ class ExpoMlcLlmModule : Module() {
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") {
-      "Hello world! 👋"
+      // init the MLCEngine
+      "Hello from Kotlin!"
+    }
+
+    Function("loadModel") { modelName: String -> 
+      // Load the model
+      Log.i("Module loading", "trying to load model $modelName")
+      val modelPath = File(modelName).toString()
+      val modelLib = "phi3_q4f16_1_5a9dfbccbb0147e0e063927839645159"
+      Log.i("Module loaded", modelPath)
+      // try {
+      //   val engine = MLCEngine()
+      //   engine.unload()
+      //       engine.reload(modelPath, modelLib)
+      //   "Model $modelPath loaded"
+      // } catch (e: Exception) {
+      //   Log.e("Module loading", "Error loading model $modelName")
+      //   e.printStackTrace()
+      //   "Error loading model $modelName"
+      // }
+      "Model $modelPath loaded"
     }
 
     // Defines a JavaScript function that always returns a Promise and whose native code

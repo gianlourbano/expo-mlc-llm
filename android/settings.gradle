@@ -1,0 +1,2 @@
+include ':mlc4j'
+project(':mlc4j').projectDir = new File(rootProject.projectDir, '/home/gianlorenzo/GITHUB/expo-mlc-llm/android/mlc4j')

@@ -13,6 +13,10 @@ export function hello(): string {
   return ExpoMlcLlmModule.hello();
 }
 
+export function loadModel(modelName: string): string {
+  return ExpoMlcLlmModule.loadModel(modelName);
+}
+
 export async function setValueAsync(value: string) {
   return await ExpoMlcLlmModule.setValueAsync(value);
 }
